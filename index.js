@@ -24,7 +24,10 @@ const getGodMorningMessages = () => {
 };
 
 bot.on("channel_post", (msg) => {
-  if (msg.text === "/Бот, работать") chatID = msg.sender_chat.id;
+  if (msg.text === "/Бот, работать") {
+    chatID = msg.sender_chat.id;
+    bot.sendMessage(chatID, `Бот GoodMorning успешно(?) запущен. [Mussybot]`);
+  }
   if (msg.text === "/Бот, отдыхать") chatID = 0;
   console.log(msg);
 });
@@ -32,18 +35,15 @@ bot.on("channel_post", (msg) => {
 setInterval(() => {
   if (timeNow === "9:00" && !sendMessageToday) {
     if (chatID) {
-      bot.sendMessage(chatID, `${getGodMorningMessages()} , Mussybot`);
+      bot.sendMessage(chatID, `${getGodMorningMessages()} , [Mussybot]`);
     }
     sendMessageToday = true;
   }
 }, 30000);
 
 setInterval(() => {
-  if (chatID) {
-    bot.sendMessage(chatID, `${getGodMorningMessages()} [Mussybot]`);
-  }
   if (timeNow === "12:00") {
     console.log("sendMessageToday set false");
     sendMessageToday = false;
   }
-}, 3000);
+}, 30000);
