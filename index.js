@@ -1,14 +1,49 @@
-const TelegramApi = require('node-telegram-bot-api')
-const token = '5365734624:AAG8LXcQSjK4Tlh2DXYUNh7HwDWj-bvGdEo'
-const bot = new TelegramApi(token, {polling: true})
+const TelegramApi = require("node-telegram-bot-api");
+const { godMorning } = require("./GoodMorning");
+
+const token = "5365734624:AAG8LXcQSjK4Tlh2DXYUNh7HwDWj-bvGdEo";
+const bot = new TelegramApi(token, { polling: true });
 
 const today = new Date();
-const hoursNow = today.getUTCHours().toString()
-const minutsNow = today.getUTCMinutes().toString()
-const timeNow = `${today.getUTCHours() + 3}:${today.getUTCMinutes().toString().length > 1 ? today.getUTCMinutes()}`
-console.log(timeNow)
-bot.on('message', msg => {
-    const chatId = msg.chat.id;
-    bot.sendMessage(chatId, 'Доброе утро!')
-})
+const moscowUTC = 3;
+const hoursNow = (today.getUTCHours() + 3).toString();
+const minutsNow = today.getUTCMinutes().toString();
+let sendMessageToday = false;
+let chatID;
+const timeNow =
+  minutsNow.length === 1
+    ? hoursNow + ":" + 0 + minutsNow
+    : hoursNow + ":" + minutsNow;
 
+const getGodMorningMessages = () => {
+  let randomMessagesId = Math.floor(
+    Math.random() * (godMorning.length - 0) + 0
+  );
+
+  return godMorning[randomMessagesId];
+};
+
+bot.on("channel_post", (msg) => {
+  if (msg.text === "/Бот, работать") chatID = msg.sender_chat.id;
+  if (msg.text === "/Бот, отдыхать") chatID = 0;
+  console.log(msg);
+});
+
+setInterval(() => {
+  if (timeNow === "9:00" && !sendMessageToday) {
+    if (chatID) {
+      bot.sendMessage(chatID, `${getGodMorningMessages()} , Mussybot`);
+    }
+    sendMessageToday = true;
+  }
+}, 30000);
+
+setInterval(() => {
+  if (chatID) {
+    bot.sendMessage(chatID, `${getGodMorningMessages()} [Mussybot]`);
+  }
+  if (timeNow === "12:00") {
+    console.log("sendMessageToday set false");
+    sendMessageToday = false;
+  }
+}, 3000);
