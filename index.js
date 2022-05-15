@@ -32,14 +32,28 @@ bot.on("channel_post", (msg) => {
   console.log(msg);
 });
 
+bot.on("message", (msg) => {
+  if (msg.text === "/доброе утро")
+    bot.sendMessage(-1001765763490, `${getGodMorningMessages()} , [Mussybot]`);
+  console.log(msg);
+});
+
 setInterval(() => {
-  if (timeNow === "9:00" && !sendMessageToday) {
-    if (chatID) {
-      bot.sendMessage(chatID, `${getGodMorningMessages()} , [Mussybot]`);
-    }
+  bot.sendMessage(
+    179758893,
+    `
+  hoursNow: ${hoursNow}
+  timeNow === "9:00": ${timeNow === "9:00"}
+  timeNow: ${timeNow}
+  sendMessageToday%: ${sendMessageToday}
+  `
+  );
+  if (timeNow === "14:17" && !sendMessageToday) {
+    bot.sendMessage(-1001765763490, `${getGodMorningMessages()} , [Mussybot]`);
+
     sendMessageToday = true;
   }
-}, 30000);
+}, 10000);
 
 setInterval(() => {
   if (timeNow === "12:00") {
