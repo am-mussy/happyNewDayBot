@@ -2,6 +2,7 @@ const TelegramApi = require("node-telegram-bot-api");
 const { godMorning } = require("./GoodMorning");
 
 const token = "5365734624:AAFgXN_sOEIdNYGFWT7rbG-Lbx3S_qDgNV8";
+
 const bot = new TelegramApi(token, { polling: true });
 
 const today = new Date();
