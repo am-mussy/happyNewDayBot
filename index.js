@@ -43,12 +43,11 @@ setInterval(() => {
     179758893,
     `
   hoursNow: ${hoursNow}
-  timeNow === "9:00": ${timeNow === "9:00"}
-  timeNow: ${timeNow}
+  hoursNow === "9": ${hoursNow === "9"}
   sendMessageToday%: ${sendMessageToday}
   `
   );
-  if (timeNow === "14:17" && !sendMessageToday) {
+  if (hoursNow === "9" && !sendMessageToday) {
     bot.sendMessage(-1001765763490, `${getGodMorningMessages()} , [Mussybot]`);
 
     sendMessageToday = true;
