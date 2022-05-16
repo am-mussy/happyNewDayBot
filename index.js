@@ -1,3 +1,4 @@
+const moment = require("moment");
 const TelegramApi = require("node-telegram-bot-api");
 const { godMorning } = require("./GoodMorning");
 
@@ -45,8 +46,9 @@ setInterval(() => {
   console.log(`hoursNow: ${hoursNow}`);
   console.log(`sendMessageToday: ${sendMessageToday}`);
   console.log(`getUTCHours: ${today.getUTCHours()}`);
+  console.log(`moment().format("kk"): ${moment().format("kk")}`);
 
-  if (hoursNow === "9" && !sendMessageToday) {
+  if (moment().format("kk") === "9" && !sendMessageToday) {
     sendLog()(`Good morning messages send`);
     bot.sendMessage(-1001765763490, `${getGodMorningMessages()} , [Mussybot]`);
     sendMessageToday = true;
@@ -54,7 +56,7 @@ setInterval(() => {
 }, 10000);
 
 setInterval(() => {
-  if (hoursNow === 12) {
+  if (moment().format("kk") === "12") {
     sendLog()(`sendMessageToday set false`);
     sendMessageToday = false;
   }
