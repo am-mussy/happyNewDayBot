@@ -44,6 +44,8 @@ bot.on("new_chat_members", (user) => {
 setInterval(() => {
   sendLog()(`hoursNow: ${hoursNow}`);
   sendLog()(`sendMessageToday: ${sendMessageToday}`);
+  sendLog()(`getUTCHours: ${today.getUTCHours()}`);
+
   if (hoursNow === "9" && !sendMessageToday) {
     bot.sendMessage(-1001765763490, `${getGodMorningMessages()} , [Mussybot]`);
     sendMessageToday = true;
