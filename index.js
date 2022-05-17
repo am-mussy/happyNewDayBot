@@ -49,7 +49,7 @@ setInterval(() => {
   console.log(`moment().format("H"): ${moment().format("H")}`);
   console.log(`moment().utc().format("H"): ${moment().utc().format("H")}`);
 
-  if (moment().utc().format("H") === "12" && !sendMessageToday) {
+  if (moment().utc().format("H") === "6" && !sendMessageToday) {
     sendLog()(`Good morning messages send`);
     bot.sendMessage(-1001765763490, `${getGodMorningMessages()} , [Mussybot]`);
     sendMessageToday = true;
@@ -57,7 +57,7 @@ setInterval(() => {
 }, 10000);
 
 setInterval(() => {
-  if (moment().utc().format("H") === "15") {
+  if (moment().utc().format("H") === "9") {
     sendLog()(`sendMessageToday set false`);
     sendMessageToday = false;
   }
